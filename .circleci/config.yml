@@ -1,0 +1,41 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:6.11.4
+    steps:
+      - checkout
+
+  develop_test:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name: Develop Tests
+          command: echo "Running tests for develop merge"
+
+  develop_deploy:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name: Develop Deployment
+          command: echo "Running deploy for develop instance"
+
+workflows:
+  version: 2
+
+  deploy_to_develop:
+    jobs:
+      - build
+      - develop_test:
+          requires:
+            - build
+      - deploy_develop:
+          requires:
+            - develop_test
+          filters:
+            branches:
+              only:
+                - develop
+                
