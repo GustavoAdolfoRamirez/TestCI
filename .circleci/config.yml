@@ -27,7 +27,7 @@ jobs:
       - run:
           name:    Node.js version
           command: node -v
-        - run:
+      - run:
           name:    Yarn version check
           command: yarn -v
       - run:
@@ -41,7 +41,7 @@ jobs:
       - run:
           name:    Node.js version
           command: node -v
-        - run:
+      - run:
           name:    Yarn version check
           command: yarn -v
       - run:
