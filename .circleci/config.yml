@@ -55,10 +55,18 @@ workflows:
 
   deploy_to_develop:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only:
+                - develop
       - develop_test:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - develop
       - develop_deploy:
           requires:
             - develop_test
@@ -70,7 +78,11 @@ workflows:
 
   deploy_to_staging:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only:
+                - staging
       - staging_deploy:
           requires:
             - build
