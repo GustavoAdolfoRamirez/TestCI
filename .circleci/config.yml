@@ -11,7 +11,13 @@ jobs:
       enabled: true
     steps:
       - run:
-          name: Develop Tests
+          name:    Node.js version
+          command: node -v
+      - run:
+          name:    Yarn version check
+          command: yarn -v
+      - run:
+          name:    Develop Tests
           command: echo "Running tests for develop merge"
 
   develop_deploy:
@@ -19,8 +25,28 @@ jobs:
       enabled: true
     steps:
       - run:
-          name: Develop Deployment
-          command: echo "Running deploy for develop instance"
+          name:    Node.js version
+          command: node -v
+        - run:
+          name:    Yarn version check
+          command: yarn -v
+      - run:
+          name:    Develop Deployment
+          command: echo "Running deploy for develop instance..."
+
+  staging_deploy:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name:    Node.js version
+          command: node -v
+        - run:
+          name:    Yarn version check
+          command: yarn -v
+      - run:
+          name:    Staging Deployment
+          command: echo "Running deploy for staging instance..."
 
 workflows:
   version: 2
@@ -38,3 +64,15 @@ workflows:
             branches:
               only:
                 - develop
+
+
+  deploy_to_staging:
+    jobs:
+      - build
+      - staging_deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - staging
