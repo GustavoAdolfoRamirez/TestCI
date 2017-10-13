@@ -5,10 +5,10 @@ jobs:
       - image: circleci/node:6.11.4
     steps:
       - checkout
+      - setup_remote_docker:
+        docker_layer_caching: true
 
   develop_test:
-    machine:
-      enabled: true
     steps:
       - run:
           name:    Node.js version
@@ -21,8 +21,6 @@ jobs:
           command: echo "Running tests for develop merge"
 
   develop_deploy:
-    machine:
-      enabled: true
     steps:
       - run:
           name:    Node.js version
@@ -35,8 +33,6 @@ jobs:
           command: echo "Running deploy for develop instance..."
 
   staging_deploy:
-    machine:
-      enabled: true
     steps:
       - run:
           name:    Node.js version
