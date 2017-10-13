@@ -31,11 +31,10 @@ workflows:
       - develop_test:
           requires:
             - build
-      - deploy_develop:
+      - develop_deploy:
           requires:
             - develop_test
           filters:
             branches:
               only:
                 - develop
-                
